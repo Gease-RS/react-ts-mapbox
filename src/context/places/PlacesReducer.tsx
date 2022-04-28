@@ -1,3 +1,4 @@
+
 interface IPlacesState {
     isLoading: boolean
     userLocation?: [number, number] 
