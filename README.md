@@ -19,4 +19,4 @@ $ yarn add mapbox-gl
 $ yarn add -D @types/mapbox-gl
 ```
 
->Seguindo a documentação do MapBox tive muita não consegui evoluir com a versão "mapbox-gl": "^2.8.1". Tive sucesso mudando para versão "mapbox-gl": "^2.6.1"
+>Seguindo a documentação do MapBox não consegui evoluir com a versão "mapbox-gl": "^2.8.1". Tive sucesso mudando para versão "mapbox-gl": "^2.6.1"
