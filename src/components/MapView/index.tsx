@@ -1,9 +1,11 @@
 import mapboxgl from 'mapbox-gl'
 import React, { useLayoutEffect } from 'react'
+import { useMap } from '../../context/map/MapProvider'
 import { usePlaces } from '../../context/places/PlacesProvider'
 
 export default function MapView() {
     const { isLoading, userLocation } = usePlaces()
+    const { setMap } = useMap()
     const mapRef = React.useRef<HTMLDivElement>(null)
 
     console.log("userLocation", userLocation)
@@ -16,6 +18,9 @@ export default function MapView() {
                 center: userLocation,
                 zoom: 14,
               });
+
+              setMap(map)
+
         }
     }, [isLoading, userLocation])
 
