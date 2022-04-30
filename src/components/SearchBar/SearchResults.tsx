@@ -3,6 +3,15 @@ import "./styles.css";
 
 export default function SearchResults() {
   const { places, isLoadingPlaces } = usePlaces();
+
+  if (isLoadingPlaces) {
+    return <div>Loading...</div>;
+  }
+
+  if ( places.length === 0 ) {
+    return <></>
+  }
+
   return (
     <>
       <ul className="search-result-list">
@@ -10,9 +19,9 @@ export default function SearchResults() {
         {places.map((place) => (
           <li key={place.id} className="search-result-item">
             {place.place_name}
+            <button className="btn-direcoes">Direções</button>
           </li>
         ))}
-        <button className="btn-direcoes">Direções</button>
       </ul>
     </>
   );

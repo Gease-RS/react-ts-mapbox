@@ -32,7 +32,6 @@ export default function MapView() {
     <div 
         ref={mapRef}
         style={{
-            backgroundColor: '#e06',
             width: '100%',
             height: '500px'
 

@@ -1,16 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { mapReducer } from "./MapReducer";
 
-import { Map, Marker } from "mapbox-gl";
+import { Map, Marker, Popup } from "mapbox-gl";
+import { usePlaces } from "../places/PlacesProvider";
 
 interface IMapBox {
   isMapLoaded: boolean;
   map?: Map;
+  markers: Marker[];
 }
 
 const INITIAL_STATE: IMapBox = {
   isMapLoaded: false,
   map: undefined,
+  markers: []
 }
 
 interface IMapContext {
@@ -27,6 +30,29 @@ interface IMapProps {
 
 export const MapProvider = ({ children }: IMapProps) => {
   const [state, dispatch] = React.useReducer(mapReducer, INITIAL_STATE);
+  const { places } = usePlaces()
+
+  useEffect(() => {
+    state.markers.forEach(marker => marker.remove())
+    const newMarkers: Marker[] = []
+
+    for (const place of places) {
+      const [ lng, lat] = place.center
+      const poup = new Popup()
+        .setHTML(`
+          <h2>${place.text_es}</h2>
+          <p>${place.place_name_es}</p>
+        `)
+      const newMarker = new Marker()
+        .setPopup(poup)
+        .setLngLat([lng, lat])
+        .addTo(state.map!);
+
+      newMarkers.push(newMarker)
+    }
+
+    dispatch({ type: "SET_MARKERS", payload: newMarkers })
+  } , [places])
 
   const setMap = (map: Map) => {
     new Marker()
