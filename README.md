@@ -21,3 +21,7 @@ $ yarn add -D @types/mapbox-gl
 
 >Seguindo a documentação do MapBox não consegui evoluir com a versão "mapbox-gl": "^2.8.1". Tive sucesso mudando para versão "mapbox-gl": "^2.6.1"
 
+4. Instale o pacote Axios
+```bash
+$ yarn add axios
+```

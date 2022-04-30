@@ -1,18 +1,32 @@
 import React, { useEffect } from "react"
+import searchApi from "../../api/searchApi"
 import { getUserLocation } from "../../helpers/getUserLocation"
+import { Feature, PlacesResponse } from "../../interfaces/places"
 import { PlacesReducer } from "./PlacesReducer"
 
 interface IPlaces {
     isLoading: boolean
     userLocation?: [number, number] 
+    isLoadingPlaces: boolean
+    places: Feature[]
 }
 
 const INITIAL_STATE: IPlaces = {
     isLoading: true,
-    userLocation: undefined
+    userLocation: undefined,
+    isLoadingPlaces: false,
+    places: []
 }
 
-const PlacesContext = React.createContext<IPlaces>({} as IPlaces)
+interface IPlacesContext {
+    isLoading: boolean
+    userLocation?: [number, number]
+    isLoadingPlaces: boolean
+    places: Feature[]
+    searchPlaces: (query: string) => Promise<Feature[]>
+}
+
+const PlacesContext = React.createContext<IPlacesContext>({} as IPlacesContext)
 
 interface IProps {
     children: JSX.Element | JSX.Element[]
@@ -30,8 +44,29 @@ export const PlacesProvider = ({ children }: IProps) => {
          })
     }, [])
 
+    const searchPlaces = async(query: string): Promise<Feature[]> => {
+        if( query.length === 0 ) return []
+        if( !state.userLocation ) throw new Error("User location is not defined")
+
+        dispatch({
+            type: "SET_LOADING_PLACES"
+        })
+
+        const response = await searchApi.get<PlacesResponse>(`/${query}.json`, {
+            params: {
+                proximity: state.userLocation!.join(','),
+            }
+        })
+
+        dispatch({
+            type: "SET_PLACES",
+            payload: response.data.features
+        })
+        return response.data.features
+    }
+
     return (
-        <PlacesContext.Provider value={{ ...state, }}>
+        <PlacesContext.Provider value={{ ...state, searchPlaces }}>
             { children }
         </PlacesContext.Provider>
     )

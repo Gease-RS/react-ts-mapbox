@@ -1,7 +1,7 @@
 import React from "react";
 import { mapReducer } from "./MapReducer";
 
-import { Map } from "mapbox-gl";
+import { Map, Marker } from "mapbox-gl";
 
 interface IMapBox {
   isMapLoaded: boolean;
@@ -29,6 +29,9 @@ export const MapProvider = ({ children }: IMapProps) => {
   const [state, dispatch] = React.useReducer(mapReducer, INITIAL_STATE);
 
   const setMap = (map: Map) => {
+    new Marker()
+      .setLngLat(map.getCenter())
+      .addTo(map);
     dispatch({
       type: "SET_MAP",
       payload: map,
