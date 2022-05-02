@@ -1,15 +1,8 @@
 import React, { useEffect } from "react"
 import searchApi from "../../api/searchApi"
 import { getUserLocation } from "../../helpers/getUserLocation"
-import { Feature, PlacesResponse } from "../../interfaces/places"
+import { Feature, IPlaces, PlacesResponse } from "../../interfaces/places"
 import { PlacesReducer } from "./PlacesReducer"
-
-interface IPlaces {
-    isLoading: boolean
-    userLocation?: [number, number] 
-    isLoadingPlaces: boolean
-    places: Feature[]
-}
 
 const INITIAL_STATE: IPlaces = {
     isLoading: true,
@@ -57,7 +50,7 @@ export const PlacesProvider = ({ children }: IProps) => {
 
         const response = await searchApi.get<PlacesResponse>(`/${query}.json`, {
             params: {
-                proximity: state.userLocation!.join(','),
+                proximity: state.userLocation.join(','),
             }
         })
 

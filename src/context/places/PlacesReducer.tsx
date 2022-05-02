@@ -1,11 +1,4 @@
-import { Feature } from "../../interfaces/places";
-
-interface IPlacesState {
-    isLoading: boolean
-    userLocation?: [number, number] 
-    isLoadingPlaces: boolean
-    places: Feature[]
-}
+import { Feature, IPlaces as IPlacesState } from "../../interfaces/places";
 
 type PlacesAction = 
     | { type: "SET_USER_LOCATION"; payload: [number, number] }
@@ -23,13 +16,13 @@ export const PlacesReducer = (state: IPlacesState, action: PlacesAction) => {
         case "SET_LOADING_PLACES":
             return {
                 ...state,
-                isLoading: true,
+                isLoadingPlaces: true,
                 places: []
             }
         case "SET_PLACES":
             return {
                 ...state,
-                isLoading: false,
+                isLoadingPlaces: false,
                 places: action.payload
             }
         default:

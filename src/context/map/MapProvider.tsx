@@ -40,8 +40,8 @@ export const MapProvider = ({ children }: IMapProps) => {
       const [ lng, lat] = place.center
       const poup = new Popup()
         .setHTML(`
-          <h2>${place.text_es}</h2>
-          <p>${place.place_name_es}</p>
+          <h2>${place.text_ptBr}</h2>
+          <p>${place.place_name_ptBr}</p>
         `)
       const newMarker = new Marker()
         .setPopup(poup)
