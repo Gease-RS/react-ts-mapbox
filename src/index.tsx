@@ -1,4 +1,5 @@
 import mapboxgl from "mapbox-gl";
+
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { MapProvider } from "./context/map/MapProvider";

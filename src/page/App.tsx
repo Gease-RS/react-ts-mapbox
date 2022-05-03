@@ -1,4 +1,3 @@
-import React from "react";
 import BtnCenterLocation from "../components/BtnCenterLocation";
 import MapView from "../components/MapView";
 import SearchBar from "../components/SearchBar";

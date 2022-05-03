@@ -1,6 +1,6 @@
-import "./App.css";
 import mapboxgl from 'mapbox-gl';
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
+import "./App.css";
 
 mapboxgl.accessToken = `${process.env.REACT_APP_MAPBOX_TOKEN}`;
 

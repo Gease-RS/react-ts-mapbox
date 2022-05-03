@@ -25,3 +25,14 @@ $ yarn add -D @types/mapbox-gl
 ```bash
 $ yarn add axios
 ```
+
+>Para fazer o build da aplicação aplicar a configuração a seguir em todas as importações do mapbox-gl adicionando o sinal de ! e as duas linhas de ignorar devido a problema de transcopilação.
+
+```
+/* eslint import/no-webpack-loader-syntax: off */
+//@ts-ignore
+import mapboxgl from "!mapbox-gl";
+
+npm run build
+
+```

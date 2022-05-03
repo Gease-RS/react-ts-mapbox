@@ -1,10 +1,5 @@
 import { Map, Marker } from "mapbox-gl";
-
-interface IMapState {
-  isMapLoaded: boolean;
-  map?: Map;
-  markers: Marker[];
-}
+import { IMapBox as IMapState } from "../../interfaces/map";
 
 type MapAction = 
   | { type: "SET_MAP"; payload: Map }
